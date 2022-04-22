@@ -1,0 +1,329 @@
+<html>
+    <head>
+        <tilte>MVC Notities</tilte>
+        <link rel="stylesheet" href="./main.css">
+    </head>
+    <body>
+        <table>
+            <tr>
+                <th>Conntrollers</th>
+                <th>Models</th>
+                <th>View</th>
+            </tr>
+
+            <tr>
+                <td>
+                    BestellingController<br>
+                    BonController<br>
+                    GerechtController<br>
+                    MenuItemsController<br>
+                    ReserveringController<br>
+                    SubgerechtController<br>
+                    MainController
+                </td>
+
+                <td>
+                    BestellingLogic<br>
+                    BonLogic<br>
+                    GerechtLogic<br>
+                    MenuItemsLogic<br>
+                    ReserveringController<br>
+                    SubgerechtLogic<br>
+                    DataHandler<br>
+                    Outputdata
+                </td>
+
+                <td>
+                    Assets<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;CSS<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;JS<br>
+                    ButtonpageNav<br>
+                    Cart<br>
+                    Footer<br>
+                    Header<br>
+                    Read<br>
+                    Reads<br>
+                    BestellingForm<br>
+                    GerechtForm<br>
+                    ReserveringForm
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    index.php<br>
+                    Session <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;Cart <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;Cartpriced <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;Datum <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;Tijd <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;Tafel <br>
+                    MainController
+                    &nbsp;&nbsp;&nbsp;&nbsp;Include <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;Class aanroepen <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;HandleRequest <br>
+                </td>
+
+                <td>
+                    Allemaal datahandler <br>
+                    & outputdata
+                </td>
+
+                <td>
+                    nav -> linker sidebar
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="3">
+                    <pre>
+require_once "model/DataHandler.php";
+require_once "model/OutputData.php";
+
+class ReserveringLogic {
+    private $dataHandler;
+    private $outputData;
+
+    public function __construct() {
+        $this->dataHandler = new DataHandler('localhost', 'mysql', 'excellent-taste', 'root', 'root');
+        $this->outputData = new OutputData();
+    }
+
+                    </pre>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="3">
+                    <pre>
+
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+DROP TABLE IF EXISTS `bestellingen`;
+CREATE TABLE IF NOT EXISTS `bestellingen` (
+  `bestellingID` int(8) NOT NULL AUTO_INCREMENT,
+  `tijd` time NOT NULL,
+  `datum` date NOT NULL,
+  `tafel` int(8) NOT NULL,
+  `menuitemcode` int(8) NOT NULL,
+  `aantal` int(11) NOT NULL,
+  `prijs` decimal(6,2) NOT NULL,
+  `klaar` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`bestellingID`) USING BTREE,
+  KEY `menuitemcode` (`menuitemcode`)
+) ENGINE=InnoDB AUTO_INCREMENT=142 DEFAULT CHARSET=latin1;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `bestellingen`
+--
+
+INSERT INTO `bestellingen` (`bestellingID`, `tijd`, `datum`, `tafel`, `menuitemcode`, `aantal`, `prijs`, `klaar`) VALUES
+(128, '19:40:00', '2022-04-14', 4, 2, 1, '1.99', 0),
+(129, '19:40:00', '2022-04-14', 4, 3, 1, '0.99', 0),
+(130, '19:40:00', '2022-04-14', 4, 1, 18, '1.99', 0),
+(131, '19:40:00', '2022-04-14', 4, 2, 1, '1.99', 0),
+(132, '19:40:00', '2022-04-14', 5, 1, 1, '1.99', 0),
+(133, '19:40:00', '2022-04-14', 5, 2, 1, '1.99', 0),
+(134, '19:40:00', '2022-04-14', 5, 1, 1, '1.99', 1),
+(135, '19:40:00', '2022-04-14', 5, 6, 4, '3.95', 1),
+(138, '19:40:00', '2022-04-14', 1, 1, 1, '1.99', 0),
+(139, '19:40:00', '2022-04-14', 1, 2, 1, '1.99', 0),
+(140, '19:40:00', '2022-04-14', 1, 3, 1, '0.99', 0),
+(141, '19:40:00', '2022-04-14', 1, 4, 2, '2.99', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `bon`
+--
+
+DROP TABLE IF EXISTS `bon`;
+CREATE TABLE IF NOT EXISTS `bon` (
+  `bonId` int(8) NOT NULL AUTO_INCREMENT,
+  `tijd` time NOT NULL,
+  `tafel` int(8) NOT NULL,
+  `datum` date NOT NULL,
+  `totaalprijs` decimal(6,2) NOT NULL,
+  PRIMARY KEY (`bonId`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `bon`
+--
+
+INSERT INTO `bon` (`bonId`, `tijd`, `tafel`, `datum`, `totaalprijs`) VALUES
+(9, '20:14:00', 8, '2022-04-27', '41.77'),
+(10, '20:14:00', 8, '2022-04-27', '43.76'),
+(11, '20:14:00', 8, '2022-04-27', '45.75'),
+(12, '20:14:00', 8, '2022-04-27', '53.71'),
+(13, '20:14:00', 8, '2022-04-27', '55.70'),
+(14, '18:59:00', 2, '2022-04-28', '3.98'),
+(15, '18:59:00', 2, '2022-04-28', '5.97'),
+(16, '18:59:00', 2, '2022-04-28', '9.95'),
+(17, '19:40:00', 4, '2022-04-14', '3.98'),
+(18, '18:59:00', 2, '2022-04-28', '6.96'),
+(19, '19:40:00', 4, '2022-04-14', '6.96'),
+(20, '19:40:00', 4, '2022-04-14', '6.96'),
+(21, '19:40:00', 4, '2022-04-14', '5.97'),
+(22, '19:40:00', 4, '2022-04-14', '33.85'),
+(23, '19:40:00', 4, '2022-04-14', '37.83');
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `gerecht`
+--
+
+DROP TABLE IF EXISTS `gerecht`;
+CREATE TABLE IF NOT EXISTS `gerecht` (
+  `gerechtId` int(8) NOT NULL AUTO_INCREMENT,
+  `gerechtcode` varchar(3) NOT NULL,
+  `gerecht` varchar(80) NOT NULL,
+  PRIMARY KEY (`gerechtId`),
+  UNIQUE KEY `gerechtcode` (`gerechtcode`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `gerecht`
+--
+
+INSERT INTO `gerecht` (`gerechtId`, `gerechtcode`, `gerecht`) VALUES
+(1, 'drk', 'dranken'),
+(2, 'hgr', 'Hoofdgerecht'),
+(3, 'ngr', 'Nagerecht'),
+(4, 'vgr', 'Voorgerecht');
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `klanten`
+--
+
+DROP TABLE IF EXISTS `klanten`;
+CREATE TABLE IF NOT EXISTS `klanten` (
+  `klantId` int(8) NOT NULL AUTO_INCREMENT,
+  `klantnaam` varchar(40) NOT NULL,
+  `telefoonnummer` int(11) NOT NULL,
+  PRIMARY KEY (`klantId`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `klanten`
+--
+
+INSERT INTO `klanten` (`klantId`, `klantnaam`, `telefoonnummer`) VALUES
+(1, 'Johnny Magielsee', 618201732),
+(3, 'Johnny Mihaiii', 613245454),
+(4, 'Ayoub Loumiki', 61234567),
+(5, 'Tim Raiser', 618201732),
+(6, 'jan piet', 618201732),
+(7, 'Dean Wasmachine', 618201732),
+(9, 'Joe Bama', 6174354),
+(10, 'Joe Bama', 6174354),
+(11, 'dddd', 6174354),
+(12, 'Dean Wasmachine', 6174354);
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `menuitems`
+--
+
+DROP TABLE IF EXISTS `menuitems`;
+CREATE TABLE IF NOT EXISTS `menuitems` (
+  `menuitemcode` int(8) NOT NULL AUTO_INCREMENT,
+  `subgerechtcode` varchar(3) NOT NULL,
+  `menuitem` varchar(80) NOT NULL,
+  `prijs` decimal(6,2) NOT NULL,
+  PRIMARY KEY (`menuitemcode`),
+  KEY `subgerechtcode` (`subgerechtcode`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `menuitems`
+--
+
+INSERT INTO `menuitems` (`menuitemcode`, `subgerechtcode`, `menuitem`, `prijs`) VALUES
+(1, 'kdr', 'Fanta', '1.99'),
+(2, 'kdr', 'Cola', '1.99'),
+(3, 'kdr', 'Water', '0.99'),
+(4, 'kdr', 'ginger ale', '2.99'),
+(5, 'kdr', 'Koffie', '2.99'),
+(6, 'adr', 'Patatje', '3.96');
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `reserveringen`
+--
+
+DROP TABLE IF EXISTS `reserveringen`;
+CREATE TABLE IF NOT EXISTS `reserveringen` (
+  `reserveringID` int(8) NOT NULL AUTO_INCREMENT,
+  `klantId` int(8) NOT NULL,
+  `opmerking` varchar(40) NOT NULL,
+  `tafel` int(8) NOT NULL,
+  `datum` date NOT NULL,
+  `tijd` time NOT NULL,
+  `personen` int(8) NOT NULL,
+  `allergie` varchar(40) NOT NULL,
+  PRIMARY KEY (`reserveringID`) USING BTREE,
+  KEY `klantId` (`klantId`)
+) ENGINE=InnoDB AUTO_INCREMENT=118 DEFAULT CHARSET=latin1;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `reserveringen`
+--
+
+INSERT INTO `reserveringen` (`reserveringID`, `klantId`, `opmerking`, `tafel`, `datum`, `tijd`, `personen`, `allergie`) VALUES
+(101, 3, 'neendd', 1, '2022-04-14', '19:40:00', 3, 'geen'),
+(103, 4, 'sdsd', 3, '2022-04-13', '16:11:00', 2, 'noten'),
+(104, 5, 'banaans', 8, '2022-04-27', '20:14:00', 16, 'dikke bananen'),
+(109, 9, 'sfsfdf', 1, '2022-04-05', '17:48:00', 122, 'dddd'),
+(115, 5, 'banaans', 3, '2022-04-20', '18:27:00', 2, 'edff'),
+(116, 5, 'dd', 4, '2022-04-21', '19:27:00', 2, 'dd'),
+(117, 1, 'ddd', 1, '2022-04-21', '23:04:00', 1, 'ddd');
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `subgerecht`
+--
+
+DROP TABLE IF EXISTS `subgerecht`;
+CREATE TABLE IF NOT EXISTS `subgerecht` (
+  `subgerechtId` int(8) NOT NULL AUTO_INCREMENT,
+  `subgerechtcode` varchar(3) NOT NULL,
+  `gerechtcode` varchar(3) NOT NULL,
+  `subgerecht` varchar(80) NOT NULL,
+  PRIMARY KEY (`subgerechtId`),
+  UNIQUE KEY `subgerechtcode` (`subgerechtcode`),
+  KEY `gerechtcode` (`gerechtcode`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `subgerecht`
+--
+
+INSERT INTO `subgerecht` (`subgerechtId`, `subgerechtcode`, `gerechtcode`, `subgerecht`) VALUES
+(1, 'adr', 'drk', 'Alcohol drankjes'),
+(2, 'kdr', 'drk', 'Koude dranken'),
+(3, 'wdr', 'drk', 'Warme dranken'),
+(4, 'frt', 'hgr', 'Frituur');
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+                        
+                    </pre>
+                </td>
+            </tr>
+
+        </table>
+    </body>
+</html>
